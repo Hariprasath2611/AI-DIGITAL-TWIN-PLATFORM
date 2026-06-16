@@ -8,7 +8,7 @@ import {
   Briefcase,
   Award,
   Sparkles,
-  MessageSquare,
+  Compass,
   Bot,
   Brain,
   History,
