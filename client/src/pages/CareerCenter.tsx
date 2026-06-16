@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Bot, User, Send, Brain, Sparkles, Award, Star, BookOpen, CheckCircle, RefreshCw } from 'lucide-react';
+import { Bot, User, Send, Brain, AlertCircle, Award, Star, BookOpen, CheckCircle, RefreshCw } from 'lucide-react';
 import api from '../services/api';
 
 interface Message {
