@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Briefcase, Plus, Trash2, ArrowUpRight, CheckCircle2, Linkedin, AlertCircle, RefreshCw } from 'lucide-react';
+import { Briefcase, Plus, Trash2, Linkedin, AlertCircle, RefreshCw } from 'lucide-react';
 import api from '../services/api';
 
 interface Experience {
