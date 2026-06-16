@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Brain, Code, Share2, Compass, ArrowRight, Shield, Zap, ChevronDown, Check } from 'lucide-react';
+import { Sparkles, Brain, Code, Compass, ArrowRight, ChevronDown, Check } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
