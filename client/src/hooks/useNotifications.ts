@@ -20,7 +20,7 @@ export const useNotifications = () => {
     if (!user) return;
 
     // 1. Fetch initial notifications from DB
-    const fetchNotifications = async () => {
+      try {
         // Fetch user preferences or notifications if needed
         // Retrieve from local storage or seed some.
         const stored = localStorage.getItem(`notifications_${user.firebaseUid}`);
