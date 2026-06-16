@@ -107,10 +107,46 @@ const SettingsPage: React.FC = () => {
 
           {/* Writing style tuning */}
           <div className="space-y-4">
-            <h4 className="font-bold text-white flex items-center space-x-1.5 border-b border-white/5 pb-1.5">
-              <Sparkles className="w-4 h-4 text-neonPurple" />
-              <span>Writing Style Tuning</span>
-            </h4>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-white/5 pb-1.5 gap-2">
+              <h4 className="font-bold text-white flex items-center space-x-1.5">
+                <Sparkles className="w-4 h-4 text-neonPurple" />
+                <span>Writing Style Tuning</span>
+              </h4>
+              <button
+                type="button"
+                onClick={handleAutoLearn}
+                disabled={mlLoading}
+                className="px-3 py-1.5 rounded-lg border border-neonPurple/40 text-neonPurple text-xs font-semibold hover:bg-neonPurple/10 transition flex items-center space-x-1.5 disabled:opacity-50"
+              >
+                {mlLoading ? (
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <Brain className="w-3.5 h-3.5" />
+                )}
+                <span>Auto-Learn Tone from Uploads</span>
+              </button>
+            </div>
+
+            {metrics && (
+              <div className="p-4 rounded-xl border border-neonPurple/20 bg-neonPurple/5 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                <div>
+                  <span className="text-[10px] text-gray-400 block uppercase">Sentence Length</span>
+                  <span className="text-base font-black text-white">{metrics.avgSentenceLength} words</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-gray-400 block uppercase">Question Density</span>
+                  <span className="text-base font-black text-white">{Math.round(metrics.questionDensity * 100)}%</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-gray-400 block uppercase">Exclamations</span>
+                  <span className="text-base font-black text-white">{Math.round(metrics.exclamationDensity * 100)}%</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-gray-400 block uppercase">Bullet Points</span>
+                  <span className="text-base font-black text-white">{Math.round(metrics.bulletPointFrequency * 100)}%</span>
+                </div>
+              </div>
+            )}
             <div>
               <label className="text-xs font-semibold text-gray-400 block mb-1">AI Response Tone</label>
               <input
