@@ -11,6 +11,7 @@ const Skill_1 = __importDefault(require("../models/Skill"));
 const Experience_1 = __importDefault(require("../models/Experience"));
 const Memory_1 = __importDefault(require("../models/Memory"));
 const Certificate_1 = __importDefault(require("../models/Certificate"));
+const styleLearningService_1 = require("../services/styleLearningService");
 const router = (0, express_1.Router)();
 // PUT /api/users/profile - Update current user profile
 router.put('/profile', auth_1.authenticateUser, async (req, res) => {
@@ -33,6 +34,34 @@ router.put('/profile', auth_1.authenticateUser, async (req, res) => {
         }
         await user.save();
         res.json({ user, message: 'Profile updated successfully' });
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+// POST /api/users/analyze-style - Analyze user writings and save style profile
+router.post('/analyze-style', auth_1.authenticateUser, async (req, res) => {
+    try {
+        const user = req.user;
+        if (!user) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+        const styleProfile = await (0, styleLearningService_1.learnWritingStyle)(user.firebaseUid);
+        user.writingStyleProfile = {
+            tone: styleProfile.tone,
+            vocabulary: styleProfile.vocabulary,
+            patterns: styleProfile.patterns,
+            samplePost: styleProfile.samplePost,
+        };
+        user.profileScore = Math.min(user.profileScore + 20, 100);
+        await user.save();
+        res.json({
+            message: 'AI Writing style analysis completed successfully.',
+            writingStyleProfile: user.writingStyleProfile,
+            profileScore: user.profileScore,
+            stylometrics: styleProfile.stylometrics,
+        });
     }
     catch (error) {
         res.status(500).json({ error: error.message });
