@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, Bot, User, Send, Briefcase, Award, Code, Compass, ArrowRight, X, ChevronRight, Sparkles } from 'lucide-react';
+import { Brain, Bot, User, Send, Award, Code, X, Sparkles } from 'lucide-react';
 import api from '../services/api';
 
 interface UserProfile {
