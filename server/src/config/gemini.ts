@@ -1,13 +1,13 @@
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-let googleGenAI: GoogleGenAI | null = null;
+let googleGenAI: GoogleGenerativeAI | null = null;
 let isGeminiConfigured = false;
 
 const apiKey = process.env.GEMINI_API_KEY;
 
 if (apiKey) {
   try {
-    googleGenAI = new GoogleGenAI({ apiKey });
+    googleGenAI = new GoogleGenerativeAI(apiKey);
     isGeminiConfigured = true;
     console.log('[Gemini API] Client initialized successfully.');
   } catch (error) {

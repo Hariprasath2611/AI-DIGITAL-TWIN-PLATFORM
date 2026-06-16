@@ -10,13 +10,15 @@ interface Message {
 export const askGemini = async (prompt: string, systemInstruction?: string): Promise<string> => {
   if (isGeminiConfigured && googleGenAI) {
     try {
-      const response = await googleGenAI.models.generateContent({
+      const model = googleGenAI.getGenerativeModel({
         model: 'gemini-1.5-flash',
-        contents: prompt,
-        config: systemInstruction ? { systemInstruction } : undefined
+        systemInstruction: systemInstruction || undefined,
       });
-      if (response.text) {
-        return response.text.trim();
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+      if (text) {
+        return text.trim();
       }
     } catch (error) {
       console.error('[AI Service] Gemini content generation error:', error);
