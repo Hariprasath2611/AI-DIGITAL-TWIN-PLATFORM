@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { io, Socket } from 'socket.io-client';
 
 export interface Notification {
   _id: string;
