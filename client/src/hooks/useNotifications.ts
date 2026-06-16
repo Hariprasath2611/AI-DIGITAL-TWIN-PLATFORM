@@ -21,12 +21,8 @@ export const useNotifications = () => {
 
     // 1. Fetch initial notifications from DB
     const fetchNotifications = async () => {
-      try {
-        const response = await api.get('/auth/me'); // User details already has notifications, but we can query them or do mock fetch
-        // Let's call a custom endpoint or generate mock initial notifications
-        const notifRes = await api.get('/admin/uploads').catch(() => ({ data: [] })); // mock check
-        // Let's construct default notifications or query '/notifications' if we have it.
-        // Let's retrieve from local storage or seed some.
+        // Fetch user preferences or notifications if needed
+        // Retrieve from local storage or seed some.
         const stored = localStorage.getItem(`notifications_${user.firebaseUid}`);
         if (stored) {
           const parsed = JSON.parse(stored);
