@@ -1,0 +1,17 @@
+{
+  "name": "ai-digital-twin-platform",
+  "version": "1.0.0",
+  "description": "AI Digital Twin SaaS Platform",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && npm install --prefix client && npm install --prefix server",
+    "client": "npm run dev --prefix client",
+    "server": "npm run dev --prefix server",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "npm run build --prefix client && npm run build --prefix server"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
