@@ -6,6 +6,7 @@ import Skill from '../models/Skill';
 import Experience from '../models/Experience';
 import Memory from '../models/Memory';
 import Certificate from '../models/Certificate';
+import { learnWritingStyle } from '../services/styleLearningService';
 
 const router = Router();
 
@@ -31,6 +32,38 @@ router.put('/profile', authenticateUser, async (req: AuthenticatedRequest, res: 
 
     await user.save();
     res.json({ user, message: 'Profile updated successfully' });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST /api/users/analyze-style - Analyze user writings and save style profile
+router.post('/analyze-style', authenticateUser, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const user = req.user;
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    const styleProfile = await learnWritingStyle(user.firebaseUid);
+
+    user.writingStyleProfile = {
+      tone: styleProfile.tone,
+      vocabulary: styleProfile.vocabulary,
+      patterns: styleProfile.patterns,
+      samplePost: styleProfile.samplePost,
+    };
+
+    user.profileScore = Math.min(user.profileScore + 20, 100);
+    await user.save();
+
+    res.json({
+      message: 'AI Writing style analysis completed successfully.',
+      writingStyleProfile: user.writingStyleProfile,
+      profileScore: user.profileScore,
+      stylometrics: styleProfile.stylometrics,
+    });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
