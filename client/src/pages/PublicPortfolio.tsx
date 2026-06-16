@@ -65,7 +65,6 @@ interface ChatMessage {
 
 const PublicPortfolio: React.FC = () => {
   const { username } = useParams<{ username: string }>();
-  const navigate = useNavigate();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);
