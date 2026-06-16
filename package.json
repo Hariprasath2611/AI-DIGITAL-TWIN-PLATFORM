@@ -4,11 +4,11 @@
   "description": "AI Digital Twin SaaS Platform",
   "private": true,
   "scripts": {
-    "install:all": "npm install --legacy-peer-deps && npm install --prefix client --legacy-peer-deps && npm install --prefix server --legacy-peer-deps",
-    "client": "npm run dev --prefix client",
-    "server": "npm run dev --prefix server",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "npm run build --prefix client && npm run build --prefix server"
+    "install:all": "npm install --legacy-peer-deps && npm install --prefix frontend --legacy-peer-deps && npm install --prefix backend --legacy-peer-deps",
+    "frontend": "npm run dev --prefix frontend",
+    "backend": "npm run dev --prefix backend",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "build": "npm run build --prefix frontend && npm run build --prefix backend"
   },
   "dependencies": {},
   "devDependencies": {
