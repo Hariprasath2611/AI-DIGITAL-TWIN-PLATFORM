@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings, User, Sparkles, RefreshCw, Check } from 'lucide-react';
+import { Settings, User, Sparkles, RefreshCw, Check, Brain } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 
@@ -15,6 +15,29 @@ const SettingsPage: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [mlLoading, setMlLoading] = useState(false);
+  const [metrics, setMetrics] = useState<any>(null);
+
+  const handleAutoLearn = async () => {
+    setMlLoading(true);
+    setMetrics(null);
+    try {
+      const response = await api.post('/users/analyze-style');
+      const profile = response.data.writingStyleProfile;
+      if (profile) {
+        setTone(profile.tone);
+        setVocab(profile.vocabulary.join(', '));
+        setPatterns(profile.patterns.join('\n'));
+      }
+      setMetrics(response.data.stylometrics);
+      await syncProfile();
+    } catch (err) {
+      console.error('Failed to run style learning:', err);
+      alert('Ensure you have uploaded PDF resumes or personal notes in the Knowledge Base first so the AI can analyze your writing patterns.');
+    } finally {
+      setMlLoading(false);
+    }
+  };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
