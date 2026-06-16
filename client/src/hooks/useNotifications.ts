@@ -19,7 +19,7 @@ export const useNotifications = () => {
   useEffect(() => {
     if (!user) return;
 
-    // 1. Fetch initial notifications from DB
+    const fetchNotifications = async () => {
       try {
         // Fetch user preferences or notifications if needed
         // Retrieve from local storage or seed some.
