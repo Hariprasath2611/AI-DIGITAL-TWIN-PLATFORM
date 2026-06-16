@@ -40,10 +40,8 @@ const cosineSimilarity = (vecA: number[], vecB: number[]): number => {
 export const getEmbedding = async (text: string): Promise<number[]> => {
   if (isGeminiConfigured && googleGenAI) {
     try {
-      const response = await googleGenAI.models.embedContent({
-        model: 'text-embedding-004',
-        contents: text,
-      });
+      const model = googleGenAI.getGenerativeModel({ model: 'text-embedding-004' });
+      const response = await model.embedContent(text);
       if (response.embedding && response.embedding.values) {
         return response.embedding.values;
       }
