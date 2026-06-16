@@ -70,7 +70,6 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
     navigate('/');
   };
 
-  const Compass = Sparkles; // local mapping for missing import
 
   return (
     <div className="flex min-h-screen bg-darkBg text-gray-100 overflow-x-hidden relative font-sans">
